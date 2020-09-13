@@ -1,0 +1,10 @@
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\bin\Debug\CartasLolis.dll.config
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\bin\Debug\CartasLolis.dll
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\bin\Debug\CartasLolis.pdb
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\obj\Debug\View.csprojAssemblyReference.cache
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\obj\Debug\CartasLolis.Form1.resources
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\obj\Debug\CartasLolis.Properties.Resources.resources
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\obj\Debug\View.csproj.GenerateResource.cache
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\obj\Debug\View.csproj.CoreCompileInputs.cache
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\obj\Debug\CartasLolis.dll
+C:\Users\Alex\source\repos\CartasLolis\CartasLolis\obj\Debug\CartasLolis.pdb

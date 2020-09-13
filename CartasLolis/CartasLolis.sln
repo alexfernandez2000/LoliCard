@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "CartasLolis\View.csproj", "{16825093-B88A-436A-8B2B-7C34E30A4173}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controller\Controller.csproj", "{56983140-3463-41BF-9C57-D97146B90210}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{992AD66B-0648-4527-9BE5-C64C1949F4BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16825093-B88A-436A-8B2B-7C34E30A4173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16825093-B88A-436A-8B2B-7C34E30A4173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16825093-B88A-436A-8B2B-7C34E30A4173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16825093-B88A-436A-8B2B-7C34E30A4173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56983140-3463-41BF-9C57-D97146B90210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56983140-3463-41BF-9C57-D97146B90210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56983140-3463-41BF-9C57-D97146B90210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56983140-3463-41BF-9C57-D97146B90210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{992AD66B-0648-4527-9BE5-C64C1949F4BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{992AD66B-0648-4527-9BE5-C64C1949F4BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{992AD66B-0648-4527-9BE5-C64C1949F4BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{992AD66B-0648-4527-9BE5-C64C1949F4BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A7051A6-0EF9-4B7D-96A9-B8F58F199326}
+	EndGlobalSection
+EndGlobal
