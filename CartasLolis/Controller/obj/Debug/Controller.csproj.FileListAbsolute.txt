@@ -1,0 +1,12 @@
+C:\Users\Alex\source\repos\CartasLolis\Controller\bin\Debug\Controller.exe
+C:\Users\Alex\source\repos\CartasLolis\Controller\bin\Debug\Controller.pdb
+C:\Users\Alex\source\repos\CartasLolis\Controller\bin\Debug\CartasLolis.dll
+C:\Users\Alex\source\repos\CartasLolis\Controller\bin\Debug\Model.dll
+C:\Users\Alex\source\repos\CartasLolis\Controller\bin\Debug\CartasLolis.pdb
+C:\Users\Alex\source\repos\CartasLolis\Controller\bin\Debug\CartasLolis.dll.config
+C:\Users\Alex\source\repos\CartasLolis\Controller\bin\Debug\Model.pdb
+C:\Users\Alex\source\repos\CartasLolis\Controller\obj\Debug\Controller.csprojAssemblyReference.cache
+C:\Users\Alex\source\repos\CartasLolis\Controller\obj\Debug\Controller.csproj.CoreCompileInputs.cache
+C:\Users\Alex\source\repos\CartasLolis\Controller\obj\Debug\Controller.csproj.CopyComplete
+C:\Users\Alex\source\repos\CartasLolis\Controller\obj\Debug\Controller.exe
+C:\Users\Alex\source\repos\CartasLolis\Controller\obj\Debug\Controller.pdb
