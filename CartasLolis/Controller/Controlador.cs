@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -17,25 +18,227 @@ namespace Controller
         Form1 form;
         List<PictureBox> lpb;
         List<Carta>allCards=new List<Carta>();
-        Carta auxCard;
+        Carta[] cardsOnTable = new Carta[16];
+        int cardSelected;
+        int enemyCardSelected;
         Player player;
         Player enemy;
         public Controlador()
         {
             form = new Form1();
             insertStartedCards();
-           allCards=deserealize();
+           allCards=deserealize().OrderBy(x => x.Nombre).ToList();
             //Creación del jugador
-            player = new Player("Alex", 0, 30, deckCreation());
-
+            
             lpb =  form.Controls.OfType<PictureBox>().ToList();
+            lpb = Merge(lpb);
             foreach (PictureBox item in lpb)
             {
                 item.Click += PulsarCarta;
             }
+            form.bt_Attack.Click += atackAction;
+            form.bt_PasarTurno.Click += passTurn;
+            startGame();
             Application.Run(form);
 
         }
+
+        private void passTurn(object sender, EventArgs e)
+        {
+            player.Mana += 2;
+            rechargeActions();
+            //Turno enemigo
+            enemyTurn();
+        }
+        private void rechargeActions()
+        {
+
+            for (int i = 5; i <= 9; i++)
+            {
+                if (cardsOnTable[i]!=null)
+                {
+                    cardsOnTable[i].Actions = allCards.Find(x => x.Nombre.Equals(cardsOnTable[i].Nombre)).Actions;
+                }
+              
+            }
+            
+        }
+        private void enemyTurn()
+        {
+            //Primero saca cartas
+            Boolean aux = true;
+            while (aux)
+            {
+                Carta card = enemy.getRandomCardFromDeck();
+
+                if (card.Expenditure <= enemy.Mana)
+                {
+                    //Coloca la carta en mano al juego si tiene espacio
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (cardsOnTable[i] == null)
+                        {
+                            cardsOnTable[i] = card;
+                            enemy.Mana -= card.Expenditure;
+                            printCards();
+                            break;
+                        }
+                    }
+     //               Thread.Sleep(2000);
+                }
+                else
+                {
+                    aux = false;
+                }
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                if (cardsOnTable[i]!=null)
+                {
+                    for (int j = 0; j < cardsOnTable[i].Actions; j++)
+                    {
+                        
+                        for (int k = 5; k < 10; k++)
+                        {
+                            if (cardsOnTable[k]!=null)
+                            {
+                                cardsOnTable[k].Hp -= cardsOnTable[i].Ap;
+                                if (cardsOnTable[k].Hp <= 0)
+                                {
+                                    lpb[k + 1].Image = null;
+                                    cardsOnTable[k] = null;
+                                    aux = true;
+                                    printCards();
+                                }
+                                break;
+                            }                            
+                        }
+                        if (aux == false)
+                        {
+                            player.Heal -= cardsOnTable[i].Ap;
+                            if (player.Heal <= 0)
+                            {
+                                //Derrota Jugador pierda
+                                break;
+                            }
+                        }
+                        aux = false;
+                        if (player.Heal <= 0)
+                        {
+                            break;
+                        }
+          //              Thread.Sleep(2000);
+                    }
+                    if (player.Heal <= 0)
+                    {
+                        break;
+                    }
+                }
+                if (player.Heal <= 0)
+                {
+                    break;
+                }
+            }
+            enemy.Mana += 2;
+        }
+        //Ataca a las cartas o al enemigo
+        private void atackAction(object sender, EventArgs e)
+        {
+            if (enemyCardSelected!=-1 && cardSelected!=-1 && cardsOnTable[cardSelected].Actions>0)
+            {
+                cardsOnTable[enemyCardSelected].Hp= cardsOnTable[enemyCardSelected].Hp- cardsOnTable[cardSelected].Ap;
+                cardsOnTable[cardSelected].Actions--;
+                if (cardsOnTable[enemyCardSelected].Hp<=0)
+                {
+                    //Carta eliminada
+                    cardsOnTable[enemyCardSelected] = null;
+                    lpb[enemyCardSelected + 1].Image=null;
+                    enemyCardSelected = -1;
+                    printCards();
+                }
+            }
+            else if (enemyCardSelected == -1 && cardSelected != -1 && cardsOnTable[cardSelected].Actions > 0)
+            {
+               enemy.Heal=enemy.Heal - cardsOnTable[cardSelected].Ap;
+                cardsOnTable[cardSelected].Actions--;
+                if (enemy.Heal<=0)
+                {
+                    //Enemigo derrotado
+                }
+            }
+        }
+        //Comprueba todas las cartas
+
+        //Orden de los pictureBox del form
+        private List<PictureBox> Merge(List<PictureBox> array)
+        {
+            if (array.Count <= 1)
+            {
+                return array;
+            }
+            int arrayLengh = array.Count;
+            List<PictureBox> array1 = Merge(array.GetRange(arrayLengh / 2, arrayLengh / 2 + arrayLengh % 2));
+            List<PictureBox> array2 = Merge(array.GetRange(0, arrayLengh / 2));
+            bool ordenado = false;
+            int i = 0, j = 0, array2Lengh = array2.Count, array1Lengh = array1.Count;
+            List<PictureBox> arrayOrdenado = new List<PictureBox>();
+            while (ordenado == false)
+            {
+
+                if (i == array1Lengh)
+                {
+                    arrayOrdenado.Add(array2[j]);
+                    j++;
+                }
+                else if (j == array2Lengh)
+                {
+                    arrayOrdenado.Add(array1[i]);
+                    i++;
+                }
+                else if (int.Parse(array1[i].Name.Substring(2)) > int.Parse(array2[j].Name.Substring(2)))
+                {
+                    arrayOrdenado.Add(array2[j]);
+                    j++;
+                }
+                else
+                {
+                    arrayOrdenado.Add(array1[i]);
+                    i++;
+                }
+                if (arrayOrdenado.Count == arrayLengh)
+                {
+                    ordenado = true;
+                }
+            }
+            return arrayOrdenado;
+
+        }
+
+        //Inicio de juego
+        private void startGame()
+        {
+            player = new Player("Alex", 10,30, deckCreation());
+            enemy = new Player("Enemy", 5, 30, deckCreation());
+            insertImage("https://i.ytimg.com/vi/b5yhqSgSxFQ/hqdefault.jpg", 0);
+            cardsOnTable[10] = player.getRandomCardFromDeck();
+            printCards();
+            
+        }
+        //Muestra cartas en tablero
+        private void printCards()
+        {
+            int i= 0;
+            foreach (Carta cards in cardsOnTable)
+            {
+                if (cards!=null)
+                {
+                    insertImage(cards.Url,i+1);
+                }
+                i++;
+            }
+            
+        }
+        //Crea un mazo para la clase Player
         private List<Carta> deckCreation()
         {
             Random r = new Random();
@@ -56,57 +259,109 @@ namespace Controller
             }
             return cl;
         }
+        //En futuro añadir unas label en la view para saber que carta y que estats tiene cada una de ellas.
         private void PulsarCarta(object sender, EventArgs e)
         {
+            //CardsOnTable 0-4 enemigo 5-9 jugador 10 a cojer 11-15 mano
             PictureBox prueba=(PictureBox) sender;
             int numCarta =int.Parse(prueba.Name.Substring(2));
-            if (numCarta<6)
+            if (numCarta<6 && numCarta>0)
             {
-            //Cartas enemigo
+                //Cartas enemigo
+                if (cardsOnTable[numCarta-1]!=null)
+                {
+                    enemyCardSelected = numCarta-1;
+                }
+                else
+                {
+                    enemyCardSelected = -1;
+                }
+
+            }
+            else if(numCarta==0)
+            {
+                //Jugador enemigo
+                
+                enemyCardSelected = numCarta - 1;
+
             }
             else if(numCarta!=11 && numCarta<11)
-            { 
-            //Cartas aliadas en juego
+            {
+                //Cartas aliadas en juego
+                if (cardsOnTable[numCarta - 1] != null)
+                {
+                    cardSelected = numCarta - 1;
+                }
+                else
+                {
+                    cardSelected =- 1;
+                }
             }
             else if(numCarta!=11)
-            { 
-            //Cartas en mano
+            {
+                //Cartas en mano
+                if (cardsOnTable[numCarta-1 ]!=null)
+                {
+                    //Sacar carta al juego
+                    for (int i = 5; i <= 9; i++)
+                    {
+                        if (cardsOnTable[i]==null && player.Mana>= cardsOnTable[numCarta-1].Expenditure)
+                        {
+                            player.Mana -= cardsOnTable[numCarta-1].Expenditure;
+                            cardsOnTable[i] = cardsOnTable[numCarta - 1];
+                            cardsOnTable[numCarta - 1] = null;
+                            lpb[numCarta].Image=null;
+                            break;
+                        }
+                    }
+                }
+
             }
             else
             {
-            //Siguiente carta a sacar
+                //Siguiente carta a sacar
+                for (int i = 11; i <=15 ; i++)
+                {
+                    if (cardsOnTable[i]==null)
+                    {
+                        cardsOnTable[i] = cardsOnTable[10];
+                        cardsOnTable[10] = player.getRandomCardFromDeck();
+                        break;
+                    }
+                }
             }
-           
-            
-            prueba.SizeMode = PictureBoxSizeMode.Zoom;
+
+
+            printCards();
         }
+
         //Creo una lista base de cartas para jugar
         public void insertStartedCards()
         {
             List<Carta> cards = new List<Carta>();
             Carta card;
-            card = new Carta("Shiro", 10, 10,5, "https://www.anmosugoi.com/wp-content/uploads/2019/10/nogamenolife.png");
+            card = new Carta("Shiro", 10, 10,5, "https://www.anmosugoi.com/wp-content/uploads/2019/10/nogamenolife.png",1);
             cards.Add(card);
             
-            card = new Carta("Kanna", 7, 7,3, "https://cutewallpaper.org/21/kanna-wallpapers/Desktop-Wallpaper-Cute-Kanna-Kamui-Kobayashi-San-Chi-No-.jpg");
+            card = new Carta("Kanna", 7, 7,3, "https://cutewallpaper.org/21/kanna-wallpapers/Desktop-Wallpaper-Cute-Kanna-Kamui-Kobayashi-San-Chi-No-.jpg", 1);
             cards.Add(card);
 
-            card = new Carta("Schwi", 9, 9,4, "https://i.pinimg.com/originals/38/d3/6b/38d36b8052568be17d5dee0ee798fcdb.jpg");
+            card = new Carta("Schwi", 9, 9,4, "https://i.pinimg.com/originals/38/d3/6b/38d36b8052568be17d5dee0ee798fcdb.jpg", 1);
             cards.Add(card);
 
-            card = new Carta("Nezuko", 6, 7,2, "https://static2.cbrimages.com/wordpress/wp-content/uploads/2020/02/nezuko-feature.jpg");
+            card = new Carta("Nezuko", 6, 7,2, "https://static2.cbrimages.com/wordpress/wp-content/uploads/2020/02/nezuko-feature.jpg", 1);
             cards.Add(card);
 
-            card = new Carta("Umaru", 7, 4,2, "https://i.pinimg.com/originals/e2/0a/0d/e20a0da2d36bdfa025b164f3745386c0.jpg");
+            card = new Carta("Umaru", 7, 4,2, "https://i.pinimg.com/originals/e2/0a/0d/e20a0da2d36bdfa025b164f3745386c0.jpg", 1);
             cards.Add(card);
 
-            card = new Carta("Eucliwood", 5, 8,2, "https://i.imgur.com/uHH9XvJ.jpg");
+            card = new Carta("Eucliwood", 5, 8,2, "https://i.imgur.com/uHH9XvJ.jpg", 1);
             cards.Add(card);
 
-            card = new Carta("Izuna", 8, 7,3, "https://i.pinimg.com/originals/91/c7/e3/91c7e3ade6c811211e1c132d332af969.jpg");
+            card = new Carta("Izuna", 8, 7,3, "https://i.pinimg.com/originals/91/c7/e3/91c7e3ade6c811211e1c132d332af969.jpg",1);
             cards.Add(card);
 
-            card = new Carta("Koneko", 5, 6,1, "https://preview.redd.it/gbi4nrcdjwq41.jpg?auto=webp&s=189927c706df5b4da3859d4e25de57d38d9c5f21");
+            card = new Carta("Koneko", 5, 6,1, "https://preview.redd.it/gbi4nrcdjwq41.jpg?auto=webp&s=189927c706df5b4da3859d4e25de57d38d9c5f21", 1);
             cards.Add(card);
             serialize(cards);
         }
@@ -128,13 +383,13 @@ namespace Controller
             List<Carta> myObject = (List<Carta>)mySerializer.Deserialize(myFileStream);
             return myObject;
         }
-        public void insertarImagen()
+        public void insertImage(string url,int pbPosition)
         {
-            PictureBox ima= form.pb7;
-            ima.Load("https://www.anmosugoi.com/wp-content/uploads/2019/10/nogamenolife.png");
-            ima.SizeMode = PictureBoxSizeMode.Zoom;
-            form.pb7 = ima;
-            
+            PictureBox image= lpb[pbPosition];
+            image.Load(url);
+            image.SizeMode = PictureBoxSizeMode.Zoom;
+            //pb= image;
+            lpb[pbPosition] = image;
         }
     }
 }

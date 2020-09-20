@@ -29,5 +29,10 @@ namespace Model
             this.heal = heal;
             this.deck = deck;
         }
+        public Carta getRandomCardFromDeck()
+        {
+            Random r = new Random();
+            return Mazo[r.Next(0, deck.Count())];
+        }
     }
 }

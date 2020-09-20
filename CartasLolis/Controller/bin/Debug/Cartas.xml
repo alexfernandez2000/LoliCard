@@ -1,51 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCarta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Carta>
-    <nombre>Shiro</nombre>
-    <hp>10</hp>
-    <ap>10</ap>
-    <url>https://www.anmosugoi.com/wp-content/uploads/2019/10/nogamenolife.png</url>
+    <Nombre>Shiro</Nombre>
+    <Hp>10</Hp>
+    <Ap>10</Ap>
+    <Expenditure>5</Expenditure>
+    <Url>https://www.anmosugoi.com/wp-content/uploads/2019/10/nogamenolife.png</Url>
+    <Actions>1</Actions>
   </Carta>
   <Carta>
-    <nombre>Kanna</nombre>
-    <hp>7</hp>
-    <ap>7</ap>
-    <url>https://cutewallpaper.org/21/kanna-wallpapers/Desktop-Wallpaper-Cute-Kanna-Kamui-Kobayashi-San-Chi-No-.jpg</url>
+    <Nombre>Kanna</Nombre>
+    <Hp>7</Hp>
+    <Ap>7</Ap>
+    <Expenditure>3</Expenditure>
+    <Url>https://cutewallpaper.org/21/kanna-wallpapers/Desktop-Wallpaper-Cute-Kanna-Kamui-Kobayashi-San-Chi-No-.jpg</Url>
+    <Actions>1</Actions>
   </Carta>
   <Carta>
-    <nombre>Schwi</nombre>
-    <hp>9</hp>
-    <ap>9</ap>
-    <url>https://i.pinimg.com/originals/38/d3/6b/38d36b8052568be17d5dee0ee798fcdb.jpg</url>
+    <Nombre>Schwi</Nombre>
+    <Hp>9</Hp>
+    <Ap>9</Ap>
+    <Expenditure>4</Expenditure>
+    <Url>https://i.pinimg.com/originals/38/d3/6b/38d36b8052568be17d5dee0ee798fcdb.jpg</Url>
+    <Actions>1</Actions>
   </Carta>
   <Carta>
-    <nombre>Nezuko</nombre>
-    <hp>6</hp>
-    <ap>7</ap>
-    <url>https://static2.cbrimages.com/wordpress/wp-content/uploads/2020/02/nezuko-feature.jpg</url>
+    <Nombre>Nezuko</Nombre>
+    <Hp>6</Hp>
+    <Ap>7</Ap>
+    <Expenditure>2</Expenditure>
+    <Url>https://static2.cbrimages.com/wordpress/wp-content/uploads/2020/02/nezuko-feature.jpg</Url>
+    <Actions>1</Actions>
   </Carta>
   <Carta>
-    <nombre>Umaru</nombre>
-    <hp>7</hp>
-    <ap>4</ap>
-    <url>https://i.pinimg.com/originals/e2/0a/0d/e20a0da2d36bdfa025b164f3745386c0.jpg</url>
+    <Nombre>Umaru</Nombre>
+    <Hp>7</Hp>
+    <Ap>4</Ap>
+    <Expenditure>2</Expenditure>
+    <Url>https://i.pinimg.com/originals/e2/0a/0d/e20a0da2d36bdfa025b164f3745386c0.jpg</Url>
+    <Actions>1</Actions>
   </Carta>
   <Carta>
-    <nombre>Eucliwood</nombre>
-    <hp>5</hp>
-    <ap>8</ap>
-    <url>https://i.imgur.com/uHH9XvJ.jpg</url>
+    <Nombre>Eucliwood</Nombre>
+    <Hp>5</Hp>
+    <Ap>8</Ap>
+    <Expenditure>2</Expenditure>
+    <Url>https://i.imgur.com/uHH9XvJ.jpg</Url>
+    <Actions>1</Actions>
   </Carta>
   <Carta>
-    <nombre>Izuna</nombre>
-    <hp>8</hp>
-    <ap>7</ap>
-    <url>https://i.pinimg.com/originals/91/c7/e3/91c7e3ade6c811211e1c132d332af969.jpg</url>
+    <Nombre>Izuna</Nombre>
+    <Hp>8</Hp>
+    <Ap>7</Ap>
+    <Expenditure>3</Expenditure>
+    <Url>https://i.pinimg.com/originals/91/c7/e3/91c7e3ade6c811211e1c132d332af969.jpg</Url>
+    <Actions>1</Actions>
   </Carta>
   <Carta>
-    <nombre>Koneko</nombre>
-    <hp>5</hp>
-    <ap>6</ap>
-    <url>https://preview.redd.it/gbi4nrcdjwq41.jpg?auto=webp&amp;s=189927c706df5b4da3859d4e25de57d38d9c5f21</url>
+    <Nombre>Koneko</Nombre>
+    <Hp>5</Hp>
+    <Ap>6</Ap>
+    <Expenditure>1</Expenditure>
+    <Url>https://preview.redd.it/gbi4nrcdjwq41.jpg?auto=webp&amp;s=189927c706df5b4da3859d4e25de57d38d9c5f21</Url>
+    <Actions>1</Actions>
   </Carta>
 </ArrayOfCarta>

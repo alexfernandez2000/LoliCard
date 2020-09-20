@@ -188,9 +188,9 @@
             // 
             // pb11
             // 
-            this.pb11.Location = new System.Drawing.Point(161, 449);
+            this.pb11.Location = new System.Drawing.Point(12, 426);
             this.pb11.Name = "pb11";
-            this.pb11.Size = new System.Drawing.Size(50, 43);
+            this.pb11.Size = new System.Drawing.Size(86, 77);
             this.pb11.TabIndex = 15;
             this.pb11.TabStop = false;
             // 
@@ -286,8 +286,8 @@
         public System.Windows.Forms.PictureBox pb2;
         public System.Windows.Forms.PictureBox pb11;
         public System.Windows.Forms.PictureBox pb0;
-        private System.Windows.Forms.Button bt_PasarTurno;
         public System.Windows.Forms.Button bt_Attack;
+        public System.Windows.Forms.Button bt_PasarTurno;
     }
 }
 

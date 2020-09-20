@@ -4,3 +4,9 @@ C:\Users\Alex\source\repos\CartasLolis\Model\obj\Debug\Model.csprojAssemblyRefer
 C:\Users\Alex\source\repos\CartasLolis\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 C:\Users\Alex\source\repos\CartasLolis\Model\obj\Debug\Model.dll
 C:\Users\Alex\source\repos\CartasLolis\Model\obj\Debug\Model.pdb
+C:\Users\Alex\source\repos\LoliCard\CartasLolis\Model\bin\Debug\Model.dll
+C:\Users\Alex\source\repos\LoliCard\CartasLolis\Model\bin\Debug\Model.pdb
+C:\Users\Alex\source\repos\LoliCard\CartasLolis\Model\obj\Debug\Model.csprojAssemblyReference.cache
+C:\Users\Alex\source\repos\LoliCard\CartasLolis\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+C:\Users\Alex\source\repos\LoliCard\CartasLolis\Model\obj\Debug\Model.dll
+C:\Users\Alex\source\repos\LoliCard\CartasLolis\Model\obj\Debug\Model.pdb
