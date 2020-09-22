@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,10 +18,11 @@ namespace Controller
     {
         Form1 form;
         List<PictureBox> lpb;
+        List<Label> llbDeck=new List<Label>();
         List<Carta>allCards=new List<Carta>();
         Carta[] cardsOnTable = new Carta[16];
-        int cardSelected;
-        int enemyCardSelected;
+        int cardSelected=-1;
+        int enemyCardSelected=-2;
         Player player;
         Player enemy;
         public Controlador()
@@ -29,7 +31,21 @@ namespace Controller
             insertStartedCards();
            allCards=deserealize().OrderBy(x => x.Nombre).ToList();
             //Creación del jugador
-            
+            List<Label>aux = form.Controls.OfType<Label>().ToList();
+            foreach (Label item in aux)
+            {
+                try
+                {
+                   int s=int.Parse(item.Name.Substring(2));
+                    llbDeck.Add(item);
+
+                }
+                catch (Exception e)
+                {
+                   
+                }
+            }
+            llbDeck=llbDeck.OrderBy(x => x.Name).ToList();
             lpb =  form.Controls.OfType<PictureBox>().ToList();
             lpb = Merge(lpb);
             foreach (PictureBox item in lpb)
@@ -42,10 +58,24 @@ namespace Controller
             Application.Run(form);
 
         }
-
+        private void printDeckLabels()
+        {
+            for (int i = 11; i <= 15; i++)
+            {
+                if (cardsOnTable[i]!=null)
+                {
+                    llbDeck[i - 11].Text = cardsOnTable[i].Expenditure.ToString();
+                }
+                else
+                {
+                    llbDeck[i - 11].Text = null;
+                }
+            }
+        }
         private void passTurn(object sender, EventArgs e)
         {
             player.Mana += 2;
+            UpdateUserStats();
             rechargeActions();
             //Turno enemigo
             enemyTurn();
@@ -103,11 +133,11 @@ namespace Controller
                             if (cardsOnTable[k]!=null)
                             {
                                 cardsOnTable[k].Hp -= cardsOnTable[i].Ap;
+                                aux = true;
                                 if (cardsOnTable[k].Hp <= 0)
                                 {
                                     lpb[k + 1].Image = null;
-                                    cardsOnTable[k] = null;
-                                    aux = true;
+                                    cardsOnTable[k] = null;                                    
                                     printCards();
                                 }
                                 break;
@@ -116,9 +146,24 @@ namespace Controller
                         if (aux == false)
                         {
                             player.Heal -= cardsOnTable[i].Ap;
+                            UpdateUserStats();
                             if (player.Heal <= 0)
                             {
                                 //Derrota Jugador pierda
+                                enemyCardSelected = -2;
+                                MostrarInfoCartas();
+                                //Enemigo derrotado
+                                DialogResult dialogResult = MessageBox.Show("Continue?", "You Lose", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    //Reazer partida
+                                    startGame();
+                                }
+                                else if (dialogResult == DialogResult.No)
+                                {
+                                    //Cerrar todo
+                                    form.Close();
+                                }
                                 break;
                             }
                         }
@@ -153,7 +198,9 @@ namespace Controller
                     //Carta eliminada
                     cardsOnTable[enemyCardSelected] = null;
                     lpb[enemyCardSelected + 1].Image=null;
-                    enemyCardSelected = -1;
+
+                    enemyCardSelected = -2;
+                    MostrarInfoCartas();
                     printCards();
                 }
             }
@@ -161,9 +208,28 @@ namespace Controller
             {
                enemy.Heal=enemy.Heal - cardsOnTable[cardSelected].Ap;
                 cardsOnTable[cardSelected].Actions--;
+
                 if (enemy.Heal<=0)
                 {
+                    enemyCardSelected = -2;
+                    MostrarInfoCartas();
                     //Enemigo derrotado
+                    DialogResult dialogResult = MessageBox.Show("Continue?", "You Win", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        //Reazer partida
+                        startGame();
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //Cerrar todo
+                        form.Close();
+                    }
+
+                }
+                else
+                {
+                    MostrarInfoCartas();
                 }
             }
         }
@@ -219,8 +285,19 @@ namespace Controller
         {
             player = new Player("Alex", 10,30, deckCreation());
             enemy = new Player("Enemy", 5, 30, deckCreation());
+            for (int i = 0,x=cardsOnTable.Count(); i < x; i++)
+            {
+                cardsOnTable[i] = null;
+            }
             insertImage("https://i.ytimg.com/vi/b5yhqSgSxFQ/hqdefault.jpg", 0);
             cardsOnTable[10] = player.getRandomCardFromDeck();
+            form.pbMP.ForeColor=Color.Blue;
+            form.pbMP.Style= ProgressBarStyle.Continuous;
+            form.pbHP.ForeColor = Color.Red;
+            form.pbHP.Style = ProgressBarStyle.Continuous;
+            UpdateUserStats();
+            MostrarInfoCartas();
+            printDeckLabels();
             printCards();
             
         }
@@ -234,9 +311,29 @@ namespace Controller
                 {
                     insertImage(cards.Url,i+1);
                 }
+                else
+                {
+                    insertImage(null, i + 1);
+                }
                 i++;
             }
             
+        }
+        private void UpdateUserStats()
+        {
+           
+            if (player.Heal<0)
+            {
+                form.lbHP.Text = "0";
+                form.pbHP.Value = 0;
+            }
+           else
+            {
+                form.lbHP.Text = player.Heal.ToString();
+                form.pbHP.Value = player.Heal;
+            }
+            form.lbMP.Text = player.Mana.ToString();
+            form.pbMP.Value = player.Mana;
         }
         //Crea un mazo para la clase Player
         private List<Carta> deckCreation()
@@ -259,7 +356,48 @@ namespace Controller
             }
             return cl;
         }
-        //En futuro añadir unas label en la view para saber que carta y que estats tiene cada una de ellas.
+        private void MostrarInfoCartas()
+        {
+            if (enemyCardSelected!=-2)
+            {
+                if (enemyCardSelected==-1)
+                {
+                    insertImage("https://i.ytimg.com/vi/b5yhqSgSxFQ/hqdefault.jpg", 17);
+                    form.lbEnemyHp.Text ="HP: "+enemy.Heal;
+                    form.lbEnemyAP.Text = null;
+                    form.lbEnemyActions.Text = "Mana: "+enemy.Mana;
+                }
+                else
+                {                  
+                    insertImage(cardsOnTable[enemyCardSelected].Url, 17);
+                    form.lbEnemyHp.Text = "HP: " + cardsOnTable[enemyCardSelected].Hp;
+                    form.lbEnemyAP.Text = "AP: "+cardsOnTable[enemyCardSelected].Ap;
+                    form.lbEnemyActions.Text = "Actions: " + +cardsOnTable[enemyCardSelected].Actions;
+                }
+            }
+            else
+            { 
+                insertImage(null, 17);
+                form.lbEnemyHp.Text = null;
+                form.lbEnemyAP.Text = null;
+                form.lbEnemyActions.Text = null;
+            }
+            
+            if (cardSelected!=-1 && cardsOnTable[cardSelected]!=null)
+            {
+                insertImage(cardsOnTable[cardSelected].Url, 18);
+                form.lbPlayerHp.Text = "HP: " + cardsOnTable[cardSelected].Hp;
+                form.lbPlayerAP.Text = "AP: " + cardsOnTable[cardSelected].Ap;
+                form.lbActionsPlayer.Text = "Actions: " + +cardsOnTable[cardSelected].Actions;
+            }
+            else
+            {
+                insertImage(null, 18);
+                form.lbPlayerHp.Text = null;
+                form.lbPlayerAP.Text = null;
+                form.lbActionsPlayer.Text = null;
+            }
+        }
         private void PulsarCarta(object sender, EventArgs e)
         {
             //CardsOnTable 0-4 enemigo 5-9 jugador 10 a cojer 11-15 mano
@@ -274,15 +412,16 @@ namespace Controller
                 }
                 else
                 {
-                    enemyCardSelected = -1;
+                    enemyCardSelected = -2;
                 }
-
+                MostrarInfoCartas();
             }
             else if(numCarta==0)
             {
                 //Jugador enemigo
                 
                 enemyCardSelected = numCarta - 1;
+                MostrarInfoCartas();
 
             }
             else if(numCarta!=11 && numCarta<11)
@@ -291,13 +430,15 @@ namespace Controller
                 if (cardsOnTable[numCarta - 1] != null)
                 {
                     cardSelected = numCarta - 1;
+                    MostrarInfoCartas();
                 }
                 else
                 {
                     cardSelected =- 1;
+
                 }
             }
-            else if(numCarta!=11)
+            else if(numCarta!=11&& numCarta<17)
             {
                 //Cartas en mano
                 if (cardsOnTable[numCarta-1 ]!=null)
@@ -308,16 +449,18 @@ namespace Controller
                         if (cardsOnTable[i]==null && player.Mana>= cardsOnTable[numCarta-1].Expenditure)
                         {
                             player.Mana -= cardsOnTable[numCarta-1].Expenditure;
+                            UpdateUserStats();
                             cardsOnTable[i] = cardsOnTable[numCarta - 1];
                             cardsOnTable[numCarta - 1] = null;
                             lpb[numCarta].Image=null;
+                            printDeckLabels();
                             break;
                         }
                     }
                 }
 
             }
-            else
+            else if (numCarta==11)
             {
                 //Siguiente carta a sacar
                 for (int i = 11; i <=15 ; i++)
@@ -326,9 +469,14 @@ namespace Controller
                     {
                         cardsOnTable[i] = cardsOnTable[10];
                         cardsOnTable[10] = player.getRandomCardFromDeck();
+                        printDeckLabels();
                         break;
                     }
                 }
+            }
+            else
+            {
+                //PB de información
             }
 
 
@@ -386,8 +534,16 @@ namespace Controller
         public void insertImage(string url,int pbPosition)
         {
             PictureBox image= lpb[pbPosition];
-            image.Load(url);
-            image.SizeMode = PictureBoxSizeMode.Zoom;
+            if (url!=null)
+            {
+                image.Load(url);
+                image.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            else
+            {
+                image.Image = null;
+            }
+            
             //pb= image;
             lpb[pbPosition] = image;
         }

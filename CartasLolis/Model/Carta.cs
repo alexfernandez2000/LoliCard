@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-   public class Carta
+   public class Carta : ICloneable
     {
         private string nombre;
         private int hp;
@@ -30,6 +30,15 @@ namespace Model
             Expenditure = expenditure;
             Url = url;
             Actions = actions;
+        }
+        public Carta Clone()
+        {
+            return (Carta)this.MemberwiseClone();
+        }
+
+        object ICloneable.Clone()
+        {
+            throw new NotImplementedException();
         }
 
         public Carta()

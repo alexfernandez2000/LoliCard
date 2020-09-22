@@ -32,7 +32,7 @@ namespace Model
         public Carta getRandomCardFromDeck()
         {
             Random r = new Random();
-            return Mazo[r.Next(0, deck.Count())];
+            return Mazo[r.Next(0, deck.Count()-1)].Clone();
         }
     }
 }

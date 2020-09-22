@@ -47,6 +47,23 @@
             this.pb0 = new System.Windows.Forms.PictureBox();
             this.bt_PasarTurno = new System.Windows.Forms.Button();
             this.bt_Attack = new System.Windows.Forms.Button();
+            this.pb17 = new System.Windows.Forms.PictureBox();
+            this.pb18 = new System.Windows.Forms.PictureBox();
+            this.lbEnemyHp = new System.Windows.Forms.Label();
+            this.lbPlayerHp = new System.Windows.Forms.Label();
+            this.lbPlayerAP = new System.Windows.Forms.Label();
+            this.lbActionsPlayer = new System.Windows.Forms.Label();
+            this.lbEnemyAP = new System.Windows.Forms.Label();
+            this.lbEnemyActions = new System.Windows.Forms.Label();
+            this.pbHP = new System.Windows.Forms.ProgressBar();
+            this.lb1 = new System.Windows.Forms.Label();
+            this.lb2 = new System.Windows.Forms.Label();
+            this.lb3 = new System.Windows.Forms.Label();
+            this.lb4 = new System.Windows.Forms.Label();
+            this.lb5 = new System.Windows.Forms.Label();
+            this.lbHP = new System.Windows.Forms.Label();
+            this.lbMP = new System.Windows.Forms.Label();
+            this.pbMP = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pb7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb9)).BeginInit();
@@ -64,6 +81,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pb2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb0)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb18)).BeginInit();
             this.SuspendLayout();
             // 
             // pb7
@@ -220,11 +239,164 @@
             this.bt_Attack.Text = "Atacar";
             this.bt_Attack.UseVisualStyleBackColor = true;
             // 
+            // pb17
+            // 
+            this.pb17.Location = new System.Drawing.Point(873, 118);
+            this.pb17.Name = "pb17";
+            this.pb17.Size = new System.Drawing.Size(105, 112);
+            this.pb17.TabIndex = 19;
+            this.pb17.TabStop = false;
+            // 
+            // pb18
+            // 
+            this.pb18.Location = new System.Drawing.Point(873, 305);
+            this.pb18.Name = "pb18";
+            this.pb18.Size = new System.Drawing.Size(105, 112);
+            this.pb18.TabIndex = 20;
+            this.pb18.TabStop = false;
+            // 
+            // lbEnemyHp
+            // 
+            this.lbEnemyHp.AutoSize = true;
+            this.lbEnemyHp.Location = new System.Drawing.Point(1030, 118);
+            this.lbEnemyHp.Name = "lbEnemyHp";
+            this.lbEnemyHp.Size = new System.Drawing.Size(0, 13);
+            this.lbEnemyHp.TabIndex = 21;
+            // 
+            // lbPlayerHp
+            // 
+            this.lbPlayerHp.AutoSize = true;
+            this.lbPlayerHp.Location = new System.Drawing.Point(1030, 305);
+            this.lbPlayerHp.Name = "lbPlayerHp";
+            this.lbPlayerHp.Size = new System.Drawing.Size(0, 13);
+            this.lbPlayerHp.TabIndex = 22;
+            // 
+            // lbPlayerAP
+            // 
+            this.lbPlayerAP.AutoSize = true;
+            this.lbPlayerAP.Location = new System.Drawing.Point(1030, 355);
+            this.lbPlayerAP.Name = "lbPlayerAP";
+            this.lbPlayerAP.Size = new System.Drawing.Size(0, 13);
+            this.lbPlayerAP.TabIndex = 23;
+            // 
+            // lbActionsPlayer
+            // 
+            this.lbActionsPlayer.AutoSize = true;
+            this.lbActionsPlayer.Location = new System.Drawing.Point(1030, 404);
+            this.lbActionsPlayer.Name = "lbActionsPlayer";
+            this.lbActionsPlayer.Size = new System.Drawing.Size(0, 13);
+            this.lbActionsPlayer.TabIndex = 24;
+            // 
+            // lbEnemyAP
+            // 
+            this.lbEnemyAP.AutoSize = true;
+            this.lbEnemyAP.Location = new System.Drawing.Point(1030, 168);
+            this.lbEnemyAP.Name = "lbEnemyAP";
+            this.lbEnemyAP.Size = new System.Drawing.Size(0, 13);
+            this.lbEnemyAP.TabIndex = 25;
+            // 
+            // lbEnemyActions
+            // 
+            this.lbEnemyActions.AutoSize = true;
+            this.lbEnemyActions.Location = new System.Drawing.Point(1030, 217);
+            this.lbEnemyActions.Name = "lbEnemyActions";
+            this.lbEnemyActions.Size = new System.Drawing.Size(0, 13);
+            this.lbEnemyActions.TabIndex = 26;
+            // 
+            // pbHP
+            // 
+            this.pbHP.Location = new System.Drawing.Point(860, 449);
+            this.pbHP.Name = "pbHP";
+            this.pbHP.Size = new System.Drawing.Size(100, 23);
+            this.pbHP.TabIndex = 27;
+            this.pbHP.Tag = "";
+            // 
+            // lb1
+            // 
+            this.lb1.AutoSize = true;
+            this.lb1.Location = new System.Drawing.Point(292, 495);
+            this.lb1.Name = "lb1";
+            this.lb1.Size = new System.Drawing.Size(0, 13);
+            this.lb1.TabIndex = 28;
+            // 
+            // lb2
+            // 
+            this.lb2.AutoSize = true;
+            this.lb2.Location = new System.Drawing.Point(350, 495);
+            this.lb2.Name = "lb2";
+            this.lb2.Size = new System.Drawing.Size(0, 13);
+            this.lb2.TabIndex = 29;
+            // 
+            // lb3
+            // 
+            this.lb3.AutoSize = true;
+            this.lb3.Location = new System.Drawing.Point(405, 495);
+            this.lb3.Name = "lb3";
+            this.lb3.Size = new System.Drawing.Size(0, 13);
+            this.lb3.TabIndex = 30;
+            // 
+            // lb4
+            // 
+            this.lb4.AutoSize = true;
+            this.lb4.Location = new System.Drawing.Point(460, 495);
+            this.lb4.Name = "lb4";
+            this.lb4.Size = new System.Drawing.Size(0, 13);
+            this.lb4.TabIndex = 31;
+            // 
+            // lb5
+            // 
+            this.lb5.AutoSize = true;
+            this.lb5.Location = new System.Drawing.Point(516, 495);
+            this.lb5.Name = "lb5";
+            this.lb5.Size = new System.Drawing.Size(0, 13);
+            this.lb5.TabIndex = 32;
+            // 
+            // lbHP
+            // 
+            this.lbHP.AutoSize = true;
+            this.lbHP.Location = new System.Drawing.Point(860, 430);
+            this.lbHP.Name = "lbHP";
+            this.lbHP.Size = new System.Drawing.Size(0, 13);
+            this.lbHP.TabIndex = 33;
+            // 
+            // lbMP
+            // 
+            this.lbMP.AutoSize = true;
+            this.lbMP.Location = new System.Drawing.Point(860, 476);
+            this.lbMP.Name = "lbMP";
+            this.lbMP.Size = new System.Drawing.Size(0, 13);
+            this.lbMP.TabIndex = 35;
+            // 
+            // pbMP
+            // 
+            this.pbMP.Location = new System.Drawing.Point(860, 495);
+            this.pbMP.Name = "pbMP";
+            this.pbMP.Size = new System.Drawing.Size(100, 23);
+            this.pbMP.TabIndex = 34;
+            this.pbMP.Tag = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(854, 527);
+            this.ClientSize = new System.Drawing.Size(1254, 531);
+            this.Controls.Add(this.lbMP);
+            this.Controls.Add(this.pbMP);
+            this.Controls.Add(this.lbHP);
+            this.Controls.Add(this.lb5);
+            this.Controls.Add(this.lb4);
+            this.Controls.Add(this.lb3);
+            this.Controls.Add(this.lb2);
+            this.Controls.Add(this.lb1);
+            this.Controls.Add(this.pbHP);
+            this.Controls.Add(this.lbEnemyActions);
+            this.Controls.Add(this.lbEnemyAP);
+            this.Controls.Add(this.lbActionsPlayer);
+            this.Controls.Add(this.lbPlayerAP);
+            this.Controls.Add(this.lbPlayerHp);
+            this.Controls.Add(this.lbEnemyHp);
+            this.Controls.Add(this.pb18);
+            this.Controls.Add(this.pb17);
             this.Controls.Add(this.bt_Attack);
             this.Controls.Add(this.bt_PasarTurno);
             this.Controls.Add(this.pb0);
@@ -245,6 +417,7 @@
             this.Controls.Add(this.pb8);
             this.Controls.Add(this.pb7);
             this.Name = "Form1";
+            this.Tag = "";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pb7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb8)).EndInit();
@@ -263,7 +436,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pb2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb18)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -288,6 +464,23 @@
         public System.Windows.Forms.PictureBox pb0;
         public System.Windows.Forms.Button bt_Attack;
         public System.Windows.Forms.Button bt_PasarTurno;
+        public System.Windows.Forms.PictureBox pb17;
+        public System.Windows.Forms.PictureBox pb18;
+        public System.Windows.Forms.Label lbEnemyHp;
+        public System.Windows.Forms.Label lbPlayerHp;
+        public System.Windows.Forms.Label lbPlayerAP;
+        public System.Windows.Forms.Label lbActionsPlayer;
+        public System.Windows.Forms.Label lbEnemyAP;
+        public System.Windows.Forms.Label lbEnemyActions;
+        public System.Windows.Forms.ProgressBar pbHP;
+        public System.Windows.Forms.Label lb1;
+        public System.Windows.Forms.Label lb2;
+        public System.Windows.Forms.Label lb3;
+        public System.Windows.Forms.Label lb4;
+        public System.Windows.Forms.Label lb5;
+        public System.Windows.Forms.Label lbHP;
+        public System.Windows.Forms.Label lbMP;
+        public System.Windows.Forms.ProgressBar pbMP;
     }
 }
 
